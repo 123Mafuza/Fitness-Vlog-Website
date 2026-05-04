@@ -1,0 +1,113 @@
+// Sample article data with 2025 fitness trends from Google
+const articles = [
+    {
+      id: 1,
+      title: "Gentle Yoga for Arthritis Relief",
+      content: "Gentle yoga promotes joint mobility and flexibility, helping manage pain and stiffness for arthritis patients. Source: US News, May 2025.",
+      category: "Yoga",
+      source: "https://www.usnews.com",
+      image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 2,
+      title: "Somatic Workouts for Mind-Body Healing",
+      content: "Somatic practices combine yoga-like movements with mindfulness for healing and self-discovery. Source: Smart Health Clubs, Sep 2024.",
+      category: "Yoga",
+      source: "https://smarthealthclubs.com",
+      image: "https://images.pexels.com/photos/3823038/pexels-photo-3823038.jpeg?auto=compress&cs=tinysrgb&w=800"
+    },
+    {
+      id: 3,
+      title: "Hyrox: The Ultimate Cardio Fitness Race",
+      content: "Hyrox combines running and functional workouts for a high-energy cardio challenge, up 233% in searches. Source: Athletech News, Dec 2024.",
+      category: "Cardio",
+      source: "https://athletechnews.com",
+      image: "https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&w=800"
+    },
+    {
+      id: 4,
+      title: "Step Aerobics Makes a Comeback",
+      content: "Step aerobics, with a 124% search increase, offers fun, high-energy cardio through creative choreography. Source: Athletech News, Dec 2024.",
+      category: "Cardio",
+      source: "https://athletechnews.com",
+      image: "https://images.pexels.com/photos/1431282/pexels-photo-1431282.jpeg?auto=compress&cs=tinysrgb&w=800"
+    },
+    {
+      id: 5,
+      title: "Strength Training Returns to Basics",
+      content: "Traditional strength exercises like squats and deadlifts surge in popularity for their effectiveness. Source: Virtuagym, Dec 2024.",
+      category: "Strength",
+      source: "https://business.virtuagym.com",
+      image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 6,
+      title: "Functional Fitness for Everyday Strength",
+      content: "Functional fitness, mimicking daily movements, boosts strength and stability for all ages. Source: Smart Health Clubs, Sep 2024.",
+      category: "Strength",
+      source: "https://smarthealthclubs.com",
+      image: "https://images.unsplash.com/photo-1533681718508-7e6220a31c74?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    }
+  ];
+  
+  // Display articles dynamically with category filter
+  const articleContainer = document.getElementById('article-container');
+  const categoryFilter = document.getElementById('category-filter');
+  
+  function displayArticles(category = 'all') {
+    articleContainer.innerHTML = '';
+    const filteredArticles = category === 'all' ? articles : articles.filter(article => article.category === category);
+    
+    if (filteredArticles.length === 0) {
+      articleContainer.innerHTML = '<p class="text-center text-gray-600 col-span-full">No articles found for this category.</p>';
+      return;
+    }
+  
+    filteredArticles.forEach(article => {
+      const articleDiv = document.createElement('div');
+      articleDiv.className = 'bg-white p-6 rounded-lg shadow-md article-card';
+      articleDiv.innerHTML = `
+        <img src="${article.image}" alt="${article.title}" class="w-full h-40 object-cover rounded-lg mb-4">
+        <h4 class="text-xl font-semibold mb-2 text-gray-800">${article.title}</h4>
+        <p class="mb-4 text-gray-600">${article.content.substring(0, 100)}...</p>
+        <p class="text-sm text-gray-600 mb-2">Category: ${article.category}</p>
+        <a href="${article.source}" target="_blank" class="text-orange-600 hover:underline">Read More</a>
+      `;
+      articleContainer.appendChild(articleDiv);
+    });
+  }
+  
+  // Category filter event listener
+  categoryFilter.addEventListener('change', (e) => {
+    displayArticles(e.target.value);
+  });
+  
+  // Video playback management (for potential future video elements)
+  const videos = document.querySelectorAll('video');
+  videos.forEach(video => {
+    video.addEventListener('play', () => {
+      videos.forEach(v => {
+        if (v !== video) v.pause();
+      });
+    });
+  });
+  
+  // Contact form submission
+  const submitBtn = document.getElementById('submit-btn');
+  submitBtn.addEventListener('click', () => {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    
+    if (name && email && message) {
+      alert('Thank you for your feedback!');
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('message').value = '';
+    } else {
+      alert('Please fill out all fields.');
+    }
+  });
+  
+  // Initialize articles
+  displayArticles();
